@@ -23,13 +23,11 @@ f = open('datapoint.csv','w')
 timeEnd = time.time() + testTime
 
 print('Experiment has started. DO NOT CLOSE THIS WINDOW.')
-flag = 0;
-count = 0;
+
+count = 0
 inject = []
 timeStart = time.time()
 while time.time()<timeEnd:
-	if round(time.time()-timeStart)==200:
-		f.write("\n")
 	f.write(dmm.query(":MEASure:CURRent:DC?"))
 	print(timeEnd - time.time())
 	print(count)
