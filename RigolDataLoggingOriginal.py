@@ -6,7 +6,7 @@ from visa import constants
 
 
 #modify test time in seconds
-testTime = 200
+testTime = 10
 
 #setting up dmm conection
 rm = visa.ResourceManager()
@@ -16,22 +16,33 @@ print(rm.list_resources())
 
 dmm = rm.open_resource('USB0::0x1AB1::0x09C4::DM3R194201991::INSTR')
 
-#writes data in a csv
-f = open('datapoint.csv','w')
-
 #timed loop
 timeEnd = time.time() + testTime
 
 print('Experiment has started. DO NOT CLOSE THIS WINDOW.')
 
 count = 0
-inject = []
-timeStart = time.time()
-while time.time()<timeEnd:
-	f.write(dmm.query(":MEASure:CURRent:DC?"))
-	print(timeEnd - time.time())
-	print(count)
-	count = count+1
 
-f.close()
+timeStart = time.time()
+#writes data in a csv
+with open('datapoint.csv', 'w', newline='') as csvfile:
+	fields = ['time', 'current']
+	writer = csv.DictWriter(csvfile, fieldnames=fields)
+
+	#outputs headers
+	writer.writeheader()
+
+	#loops until time runs out
+	while time.time()<timeEnd:
+		currTime = time.time() - timeStart
+		dmmCurrent = dmm.query(":MEASure:CURRent:DC?")
+
+		writer.writerow({'time': currTime, 'current': dmmCurrent})
+
+		#console printouts so that the user has a visible timer
+		print(timeEnd - time.time())
+		print(count)
+		count = count+1
+
+
 
