@@ -16,6 +16,9 @@ print(rm.list_resources())
 
 dmm = rm.open_resource('USB0::0x1AB1::0x09C4::DM3R194201991::INSTR')
 
+#wait for keypress to start the timer
+start = input("Enter a key to start the program")
+
 #timed loop
 timeEnd = time.time() + testTime
 
