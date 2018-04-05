@@ -36,5 +36,4 @@ testTime = 15*60
 
 - The program outputs the amount of points it has collected so far, and the amount of time left until the program is finished
 
--the csv will contain two columns. The first column has the time in seconds and the second columns has the current in Amperes.
-
+- the csv will contain two columns. The first column has the time in seconds and the second columns has the current in Amperes.
